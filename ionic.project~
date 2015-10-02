@@ -1,0 +1,10 @@
+{
+  "name": "katakrapp",
+  "app_id": "",
+  "proxies": [
+    {
+      "path": "/agenda",
+      "proxyUrl": "http://katakrak.net/rest/views/agenda_service"
+    }
+  ]
+}
