@@ -41,13 +41,13 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('AgendaCtrl', ['$http', '$scope', function($http, $scope) {
+.controller('AgendaCtrl', ['$http', '$scope','Agenda', function($http, $scope,Agenda) {
   $scope.playlists = [];
-  $http.get('http://www.katakrak.net/rest/views/agenda_service').then(function successCallback(response) {
-    $scope.playlists = response.data;
-  },
-  function errorCallback(response) {
-    $scope.error = response;
+
+  $scope.playlists = Agenda.query().$promise.then(function(success){
+    $scope.playlists = success;
+  },function(reject){
+    console.log(reject);
   });
 }])
 
