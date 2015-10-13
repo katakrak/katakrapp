@@ -1,0 +1,12 @@
+<ion-view view-title="Actos Katakrak">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="acto in actos" type="item-text-wrap" href="#/tab/acto/{{acto.id}}">
+        <div ng-bind-html="acto.imagen" class="pull-left"></div>
+        <h2>{{acto.node_title}}</h2>
+        <p ng-bind-html="acto.fecha"></p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,60 +1,33 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('DashCtrl', function($scope) {})
 
+.controller('ActosCtrl', function($scope, Actos) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
+  //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-
-  // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
+  //$scope.actos = Actos.all();
+  Actos.all().success(function(data) {
+    $scope.actos = data;
   });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+  $scope.remove = function(acto) {
+    Actos.remove(acto);
   };
 })
 
-.controller('AgendaCtrl', ['$http', '$scope','Agenda', function($http, $scope,Agenda) {
-  $scope.playlists = [];
-
-  $scope.playlists = Agenda.query().$promise.then(function(success){
-    $scope.playlists = success;
-  },function(reject){
-    console.log(reject);
-  });
-}])
-
-.controller('PlaylistCtrl', ['$http', '$scope', '$stateParams', function($http, $scope, $stateParams) {
-  $http.get('http://www.katakrak.net/rest/node/'+$stateParams.playlistId).success(function(data) {
-    $scope.playlist = data;
+.controller('ActoDetailCtrl', function($scope, $stateParams, Actos) {
+  Actos.get($stateParams.actoId).success(function(data) {
     console.log(data);
+    $scope.acto = data[0]; 
   });
+})
 
-}]);
+.controller('AccountCtrl', function($scope) {
+  $scope.settings = {
+    enableFriends: true
+  };
+});
