@@ -2,9 +2,9 @@
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="acto in actos" type="item-text-wrap" href="#/tab/acto/{{acto.id}}">
-        <div ng-bind-html="acto.imagen" class="pull-left"></div>
-        <h2>{{acto.node_title}}</h2>
-        <p ng-bind-html="acto.fecha"></p>
+        <div ng-bind-html="acto.thumbnail" class="pull-left"></div>
+        <h2>{{acto.title}}</h2>
+        <p>{{acto.fecha| date:'yyyy-MM-dd HH:mm:ss'}} </p>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

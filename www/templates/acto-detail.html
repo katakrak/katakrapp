@@ -4,12 +4,16 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{acto.node_title}}">
+<ion-view view-title="{{acto.title}}">
   <ion-content class="padding">
     <h1>
-      {{acto.node_title}}
+      {{acto.title}}
     </h1>
-    <div ng-bind-html="acto.fecha "></div>
+    <p>{{acto.fecha | date:'yyyy-MM-dd HH:mm:ss' }}</p>
     <div ng-bind-html="acto.imagen"></div>
+    <div ng-bind-html="acto.description"></div>
+    <div ng-bind-html="acto.link"></div>
+    <button class="button" ng-click="add()">Add notification</button>
+    <button class="button" ng-click="isScheduled()">Is Scheduled</button>
   </ion-content>
 </ion-view>
