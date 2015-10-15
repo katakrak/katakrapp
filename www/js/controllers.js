@@ -25,23 +25,23 @@ angular.module('starter.controllers', [])
     $scope.acto.fecha = parseInt($scope.acto.fecha) * 1000;
   });
   $scope.add = function() {
-        var alarmTime = new Date();
-        alarmTime.setMinutes(alarmTime.getMinutes() + 1);
+        var alarmTime = new Date($scope.acto.fecha);
+        alarmTime.setMinutes(alarmTime.getMinutes() - 120);
         $cordovaLocalNotification.schedule({
-            id: "1234",
+            id: $scope.acto.id,
             date: alarmTime,
-            message: "This is a message",
-            title: "This is a title",
-            autoCancel: false,
-            sound: null
+            message: "Tienes una cita",
+            title: $scope.acto.title,
+            autoCancel: true,
+            sound: null,
         }).then(function () {
             console.log("The notification has been set");
         });
     };
  
     $scope.isScheduled = function() {
-        $cordovaLocalNotification.isScheduled("1234").then(function(isScheduled) {
-            alert("Notification 1234 Scheduled: " + isScheduled);
+        $cordovaLocalNotification.isScheduled($scope.acto.id).then(function(isScheduled) {
+            alert("Notification " + $scope.acto.id + " Scheduled: " + isScheduled);
         });
     }
 })
