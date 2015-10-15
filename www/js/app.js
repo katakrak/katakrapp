@@ -9,6 +9,19 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
+    if(typeof navigator.globalization !== "undefined") {
+     navigator.globalization.getPreferredLanguage(function(language) {
+       lang = language.value.split('-')[0];
+       if (lang === 'eu') {
+          window.localStorage['lang'] = 'eus';
+       }
+       else {
+          window.localStorage['lang'] = 'cas';
+       }
+       
+     });
+   }
+    
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {

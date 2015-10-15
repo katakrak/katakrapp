@@ -1,9 +1,11 @@
 <ion-view view-title="Account">
   <ion-content>
+    <h2>Idioma</h2>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
+      <ion-radio ng-model="settings.idioma" value="cas" ng-change="changeLang()">cas</ion-radio>
+      <ion-radio ng-model="settings.idioma" value="eus" ng-change="changeLang()">eus</ion-radio>
     </ion-list>
   </ion-content>
+    
 </ion-view>
+

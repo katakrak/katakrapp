@@ -46,8 +46,12 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
+.controller('AccountCtrl', function($scope, Settings) {
+  $scope.settings = {idioma: Settings.getLang()};
+  
+  $scope.changeLang = function() {
+    Settings.setLang($scope.settings.idioma);
+    //refresh the page so the changes are active
+    window.location.reload(true);
   };
 });
