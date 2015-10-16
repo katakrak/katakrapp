@@ -9,7 +9,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    if(typeof navigator.globalization !== "undefined") {
+    if(typeof window.localStorage['lang'] === "undefined" && typeof navigator.globalization !== "undefined") {
      navigator.globalization.getPreferredLanguage(function(language) {
        lang = language.value.split('-')[0];
        if (lang === 'eu') {
