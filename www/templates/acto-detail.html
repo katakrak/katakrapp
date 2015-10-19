@@ -9,11 +9,12 @@
     <h1>
       {{acto.title}}
     </h1>
+    <button class="button" ng-click="addNotificationForm()">Add notification</button>
+    <button class="button" ng-click="isScheduled()">Is Scheduled</button>
     <p>{{acto.fecha | date:'yyyy-MM-dd HH:mm:ss' }}</p>
     <div ng-bind-html="acto.imagen"></div>
     <div ng-bind-html="acto.description"></div>
     <div ng-bind-html="acto.link"></div>
-    <button class="button" ng-click="add()">Add notification</button>
-    <button class="button" ng-click="isScheduled()">Is Scheduled</button>
+    
   </ion-content>
 </ion-view>

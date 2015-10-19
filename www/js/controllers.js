@@ -19,14 +19,24 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('ActoDetailCtrl', function($scope, $stateParams, Actos, $cordovaLocalNotification) {
+.controller('ActoDetailCtrl', function($scope, $ionicModal, $stateParams, Actos, $cordovaLocalNotification) {
   Actos.get($stateParams.actoId).success(function(data) {
     $scope.acto = data[0]; 
     $scope.acto.fecha = parseInt($scope.acto.fecha) * 1000;
   });
-  $scope.add = function() {
+  
+  $scope.notification_options = [{id:60, name:"1 hora antes"}, {id: 120, name:"2 horas antes"},{id: 300, name:"5 horas antes"} ];
+  $scope.settings = {time: 0};
+   // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/addNotificationForm.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  
+  $scope.addNotification = function(data) {
         var alarmTime = new Date($scope.acto.fecha);
-        alarmTime.setMinutes(alarmTime.getMinutes() - 120);
+        alarmTime.setMinutes(alarmTime.getMinutes() - $scope.settings.time);
         $cordovaLocalNotification.schedule({
             id: $scope.acto.id,
             date: alarmTime,
@@ -35,6 +45,7 @@ angular.module('starter.controllers', [])
             autoCancel: true,
             sound: null,
         }).then(function () {
+          $scope.modal.hide();
             console.log("The notification has been set");
         });
     };
@@ -43,7 +54,15 @@ angular.module('starter.controllers', [])
         $cordovaLocalNotification.isScheduled($scope.acto.id).then(function(isScheduled) {
             alert("Notification " + $scope.acto.id + " Scheduled: " + isScheduled);
         });
+    };
+    
+    $scope.addNotificationForm = function() {
+      $scope.modal.show();
     }
+      // Triggered in the login modal to close it
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
 })
 
 .controller('AccountCtrl', function($scope, Settings) {

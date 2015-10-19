@@ -1,0 +1,26 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Recibir notificación</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeModal()">Cerrar</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="addNotification()">
+      <div class="list">
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Cuándo recibir la notificación
+          </div>
+          <select ng-model="settings.time">
+            <option ng-repeat="option in notification_options" value="{{option.id}}">{{option.name}}</option>
+          </select>
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Enviar</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
+>
