@@ -40,5 +40,5 @@
     <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png"/>
   </platform>
   <plugin name="cordova-plugin-whitelist" spec="~1.0.0"/>
-  <allow-navigation href="http://*/*" launch-external="yes" />
+  <allow-navigation href="http://www.katakrak.net/*" launch-external="yes"/>
 </widget>

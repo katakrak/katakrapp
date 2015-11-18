@@ -11,8 +11,6 @@
     </h1>
     <button ng-disabled="acto.scheduled" class="button" ng-click="addNotificationForm()">Add notification</button>
     <button class="button" ng-click="isScheduled()">Is Scheduled</button>
-    <button class="button" ng-click="isPresent()">Is Present</button>
-    <button class="button" ng-click="isTriggered()">Is Triggered</button>
     <button class="button" ng-click="cancelNotification(acto.id)">cancel</button>
     <p>{{acto.fecha | date:'yyyy-MM-dd HH:mm:ss' }}</p>
     <div ng-bind-html="acto.imagen"></div>

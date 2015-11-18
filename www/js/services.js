@@ -14,7 +14,6 @@ angular.module('starter.services', [])
 }])
 
 .factory('Settings', function() {
-  
   return {
     getLang: function() {
       return window.localStorage['lang'];
