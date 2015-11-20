@@ -4,11 +4,11 @@ angular.module('starter.services', [])
   return {
     all: function() {
       return  $http.get('http://katakrak.net/'+Settings.getLang()+'/api/agenda/views/service_agenda');
-      //return  $http.get('api/'+Settings.getLang()+'/api/agenda/views/service_agenda');
+      return  $http.get('api/'+Settings.getLang()+'/api/agenda/views/service_agenda');
     },
     get: function(actoId) { 
       return  $http.get('http://katakrak.net/'+Settings.getLang()+'/api/agenda/views/service_agenda?args='+actoId);
-      //return  $http.get('api/'+Settings.getLang()+'/api/agenda/views/service_agenda?args='+actoId);
+      return  $http.get('api/'+Settings.getLang()+'/api/agenda/views/service_agenda?args='+actoId);
     }
   };
 }])

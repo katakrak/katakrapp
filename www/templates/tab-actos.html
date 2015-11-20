@@ -1,11 +1,21 @@
 <ion-view view-title="Actos Katakrak">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar" ng-repeat="acto in actos" type="item-text-wrap" href="#/tab/acto/{{acto.id}}">
-        <div ng-bind-html="acto.thumbnail" class="pull-left"></div>
-        <h2>{{acto.title}}</h2>
-        <p>{{acto.fecha| date:'yyyy-MM-dd HH:mm:ss'}} </p>
+      <ion-item class="item-remove-animate" ng-repeat="acto in actos" type="item-text-wrap" href="#/tab/acto/{{acto.id}}">
+        <div class="row">
+          <div class="entry_date col-25">
+            <div class="month">{{acto.fecha| date:'MMMM'}}</div>
+            <div class="day">{{acto.fecha| date:'dd'}}</div>
+            <div class="hour">{{acto.fecha| date:'HH:mm'}}</div>
+          </div>
+          <div class="col">
+            <div ng-bind-html="acto.thumbnail"></div>
+            <h2>{{acto.title}}</h2>
+          </div>
+        <p> </p>
         <i class="icon ion-chevron-right icon-accessory"></i>
+        
+        </div>
       </ion-item>
     </ion-list>
   </ion-content>
