@@ -52,6 +52,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
+  $translateProvider.useSanitizeValueStrategy('sanitize');
+  $translateProvider.translations('es', {
+    titulo_seccion_actos: "Actos Katakrak",
+    tab_actos: 'Actos',
+    tab_config: "Configuración",
+    tab_libros: "Libros",
+  });
+  $translateProvider.translations('eu', {
+      titulo_seccion_actos: "Katakrakeko ekitaldiak",
+      tab_actos: 'Ekitaldiak',
+      tab_config: "Konfigurazioa",
+      tab_libros: "Liburuak",
+  });
+  
   $stateProvider
 
   // setup an abstract state for the tabs directive
@@ -104,16 +118,4 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/actos');
-  
-  $translateProvider.useSanitizeValueStrategy('sanitize');
-  $translateProvider.translations('es', {
-    titulo_seccion_actos: "Actos Katakrak",
-    tab_actos: 'Actos',
-    goodbye_message: "Goodbye"
-  });
-  $translateProvider.translations('eu', {
-      titulo_seccion_actos: "Katakrakeko ekitaldiak",
-          tab_actos: 'Ekitaldiak',
-      goodbye_message: "Adios"
-  });
 });
