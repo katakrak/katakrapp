@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ActosCtrl', function($scope, Actos) {
+.controller('ActosCtrl', function($scope, $translate, Actos) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -20,6 +20,7 @@ angular.module('starter.controllers', [])
       $scope.actos.push(value);
     });
   });
+  $translate("titulo_seccion_actos").then(function(text) {$scope.title = text;});
 })
 
 .controller('ActoDetailCtrl', function($scope, $ionicModal, $stateParams, Actos) {
