@@ -55,12 +55,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $translateProvider.useSanitizeValueStrategy('sanitize');
   $translateProvider.translations('es', {
     titulo_seccion_actos: "Actos Katakrak",
+    titulo_seccion_libros: "Libros",
     tab_actos: 'Actos',
     tab_config: "Configuración",
     tab_libros: "Libros",
   });
   $translateProvider.translations('eu', {
       titulo_seccion_actos: "Katakrakeko ekitaldiak",
+      titulo_seccion_libros: "Liburuak",
       tab_actos: 'Ekitaldiak',
       tab_config: "Konfigurazioa",
       tab_libros: "Liburuak",
@@ -77,12 +79,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   // Each tab has its own nav history stack:
 
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.libros', {
+    url: '/libros',
     views: {
       'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+        templateUrl: 'templates/tab-libros.html',
+        controller: 'LibrosCtrl'
       }
     }
   })

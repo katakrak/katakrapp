@@ -1,7 +1,13 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {
-
+.controller('LibrosCtrl', function($scope, Libros) {
+  $scope.libros = [];
+  Libros.all().success(function(data) {
+    angular.forEach(data, function(value, key) {
+      console.log(key);
+      $scope.libros.push(value);
+    });
+  });
 })
 
 .controller('ActosCtrl', function($scope, Actos) {
