@@ -59,6 +59,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     tab_actos: 'Actos',
     tab_config: "Configuración",
     tab_libros: "Libros",
+    loading: "Cargando",
   });
   $translateProvider.translations('eu', {
       titulo_seccion_actos: "Katakrakeko ekitaldiak",
@@ -66,6 +67,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       tab_actos: 'Ekitaldiak',
       tab_config: "Konfigurazioa",
       tab_libros: "Liburuak",
+      loading: "Kargatzen",
   });
   
   $stateProvider

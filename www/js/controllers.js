@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
   $scope.libros = [];
   Libros.all().success(function(data) {
     angular.forEach(data, function(value, key) {
-      console.log(key);
+      console.log(value);
       $scope.libros.push(value);
     });
   });
@@ -34,7 +34,7 @@ angular.module('starter.controllers', [])
 
 .controller('ActoDetailCtrl', function($scope, $ionicModal, $stateParams, Actos, $ionicLoading) {
    $ionicLoading.show({
-    template: 'loading<ion-spinner></ion-spinner>'
+    templateUrl: 'templates/spinner.html'
   });
   $scope.acto = {};
   Actos.get($stateParams.actoId).success(function(data) {
