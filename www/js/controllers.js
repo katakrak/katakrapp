@@ -4,13 +4,14 @@ angular.module('starter.controllers', [])
   $scope.libros = [];
   Libros.all().success(function(data) {
     angular.forEach(data, function(value, key) {
-      console.log(value);
       $scope.libros.push(value);
     });
+    console.log($scope.libros);
   });
+  
 })
 
-.controller('ActosCtrl', function($scope, Actos, $ionicLoading) {
+.controller('ActosCtrl', function($scope, Actos, $ionicLoading, Settings) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -26,6 +27,9 @@ angular.module('starter.controllers', [])
   Actos.all().success(function(data) {
     angular.forEach(data, function(value, key) {
       value.fecha = parseInt(value.fecha) * 1000;
+      if (Settings.getLang() == 'eus') {
+        value.k = 'k';
+      }
       $scope.actos.push(value);
     });
     $ionicLoading.hide()

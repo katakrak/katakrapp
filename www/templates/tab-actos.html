@@ -9,9 +9,9 @@
           </div>
           <div class="col col-bottom"> 
             <div class="entry_date">
-              <div class="month">{{acto.fecha| date:'MMMM'}}</div>
-              <div class="day">{{acto.fecha| date:'dd'}}</div>
-              <div class="hour">{{acto.fecha| date:'HH:mm'}}</div>
+              <div class="month" ng-bind-html="acto.mes[0]+acto.k"></div>
+              <div class="day" ng-bind-html="acto.dia[0]"></div>
+              <div class="hour" ng-bind-html="acto.hora[0]"></div>
             </div>
           </div>
         </div>

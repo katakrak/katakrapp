@@ -9,11 +9,15 @@
     <h1>
       {{acto.title}}
     </h1>
-    <button ng-disabled="acto.scheduled" class="button" ng-click="addNotificationForm()">Add notification</button>
-    <button class="button" ng-click="isScheduled()">Is Scheduled</button>
+    <div ng-bind-html="acto.imagen_acto"></div>
+    <button ng-disabled="acto.scheduled" class="button" ng-click="addNotificationForm()">{{'add_notification'| translate}}</button>
     <button class="button" ng-click="cancelNotification(acto.id)">cancel</button>
-    <p>{{acto.fecha | date:'yyyy-MM-dd HH:mm:ss' }}</p>
-    <div ng-bind-html="acto.imagen"></div>
+    <div class="entry_date">
+              <div class="month">{{acto.fecha| date:'MMMM'}}</div>
+              <div class="day">{{acto.fecha| date:'dd'}}</div>
+              <div class="hour">{{acto.fecha| date:'HH:mm'}}</div>
+            </div>
+    
     <div ng-bind-html="acto.description"></div>
     <div ng-bind-html="acto.link"></div>
     

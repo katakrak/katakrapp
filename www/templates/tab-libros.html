@@ -1,9 +1,10 @@
 <ion-view view-title="{{'titulo_seccion_libros' | translate}}">
   <ion-content class="padding">
-    <div class="">
-      <div class="" ng-repeat="libro in libros">
-        {{libro.title}}
+    <div class="row" masonry="{columnWidth: 100, gutter: 5, transitionDuration: '.9s', hiddenStyle: {opacity: .001, transform: 'scale(0.01)', transform: 'rotate(200deg)'}, visibleStyle: {opacity: 1, transform: 'rotate(200deg)'}}">
+      <div ng-repeat="libro in libros">
+        <div class="col-50" ng-bind-html="libro.portada"></div>
       </div>
     </div>
+    
   </ion-content>
 </ion-view>

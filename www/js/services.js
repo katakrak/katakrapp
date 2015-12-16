@@ -7,8 +7,8 @@ angular.module('starter.services', [])
       return  $http.get('api/'+Settings.getLang()+'/rest/service_agenda');
     },
     get: function(actoId) { 
-      //return  $http.get('http://katakrak.net/'+Settings.getLang()+'/rest/service_agenda?args='+actoId);
-      return  $http.get('api/'+Settings.getLang()+'/rest/service_agenda?args='+actoId);
+      //return  $http.get('http://katakrak.net/'+Settings.getLang()+'/rest/service_agenda?args[0]='+actoId);
+      return  $http.get('api/'+Settings.getLang()+'/rest/service_agenda?args[0]='+actoId);
     }
   };
 }])
