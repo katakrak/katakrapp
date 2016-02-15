@@ -16,17 +16,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         });
       });
     }
-    if(typeof window.localStorage['lang'] === "undefined" && typeof navigator.globalization !== "undefined") {
-     navigator.globalization.getPreferredLanguage(function(language) {
-       lang = language.value.split('-')[0];
-       if (lang === 'eu') {
-          window.localStorage['lang'] = 'eus';
-       }
-       else {
-          window.localStorage['lang'] = 'cas';
-       }
-     });
-   }
+    if(typeof window.localStorage['lang'] === "undefined") {
+      if (typeof navigator.globalization !== "undefined") {
+        navigator.globalization.getPreferredLanguage(function(language) {
+          lang = language.value.split('-')[0];
+          if (lang === 'eu') {
+             window.localStorage['lang'] = 'eus';
+          }
+          else {
+             window.localStorage['lang'] = 'cas';
+          }
+        });
+      }
+      else {
+        window.localStorage['lang'] = 'cas';
+      }
+    }
    
    if (window.localStorage['lang'] === 'eus') {
      $translate.use('eu');
