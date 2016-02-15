@@ -9,6 +9,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 .run(function($ionicPlatform, $translate) {
   $ionicPlatform.ready(function() {
+    if (typeof window.plugin != 'undefined') {
+      window.plugin.notification.local.on("click", function (notification) {
+        window.plugin.notification.local.cancel(notification.id, function() { 
+          window.location.replace('#/tab/acto/'+notification.id);
+        });
+      });
+    }
     if(typeof window.localStorage['lang'] === "undefined" && typeof navigator.globalization !== "undefined") {
      navigator.globalization.getPreferredLanguage(function(language) {
        lang = language.value.split('-')[0];
@@ -18,10 +25,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
        else {
           window.localStorage['lang'] = 'cas';
        }
-       
      });
    }
-   if (window.localStorage['lang'] == 'eus') {
+   
+   if (window.localStorage['lang'] === 'eus') {
      $translate.use('eu');
    }
    else {
