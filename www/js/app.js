@@ -12,7 +12,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     if (typeof window.plugin != 'undefined') {
       window.plugin.notification.local.on("click", function (notification) {
         window.plugin.notification.local.cancel(notification.id, function() { 
-          window.location.replace('#/tab/acto/'+notification.id);
+          window.location.replace('#/app/acto/'+notification.id);
         });
       });
     }
@@ -66,18 +66,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // Each state's controller can be found in controllers.js
   $translateProvider.useSanitizeValueStrategy('sanitize');
   $translateProvider.translations('es', {
-    titulo_seccion_actos: "Actos Katakrak",
+    titulo_seccion_actos: "Agenda Katakrak",
     titulo_seccion_libros: "Libros",
-    tab_actos: 'Actos',
+    tab_actos: 'Agenda',
     tab_config: "Configuración",
     tab_libros: "Libros",
     loading: "Cargando",
     add_notification: "Notificarme",
   });
   $translateProvider.translations('eu', {
-      titulo_seccion_actos: "Katakrakeko ekitaldiak",
+      titulo_seccion_actos: "Katakrakeko agenda",
       titulo_seccion_libros: "Liburuak",
-      tab_actos: 'Ekitaldiak',
+      tab_actos: 'Agenda',
       tab_config: "Konfigurazioa",
       tab_libros: "Liburuak",
       loading: "Kargatzen",
@@ -87,53 +87,43 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $stateProvider
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
-    url: '/tab',
+    .state('app', {
+    url: '/app',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/menu.html'
   })
 
   // Each tab has its own nav history stack:
 
-  .state('tab.libros', {
-    url: '/libros',
-    views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-libros.html',
-        controller: 'LibrosCtrl'
-      }
-    }
-  })
-
-  .state('tab.actos', {
-      url: '/actos',
+  .state('app.agenda', {
+      url: '/agenda',
       views: {
-        'tab-actos': {
-          templateUrl: 'templates/tab-actos.html',
-          controller: 'ActosCtrl'
+        'menuContent': {
+          templateUrl: 'templates/agenda.html',
+          controller: 'AgendaCtrl'
         }
       }
     })
-    .state('tab.acto-detail', {
+    .state('app.acto', {
       url: '/acto/:actoId',
       views: {
-        'tab-actos': {
-          templateUrl: 'templates/acto-detail.html',
-          controller: 'ActoDetailCtrl'
+        'menuContent': {
+          templateUrl: 'templates/acto.html',
+          controller: 'ActoCtrl'
         }
       }
     })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('app.config', {
+    url: '/config',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
+      'menuContent': {
+        templateUrl: 'templates/config.html',
         controller: 'AccountCtrl'
       }
     }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/actos');
+  $urlRouterProvider.otherwise('/app/agenda');
 });

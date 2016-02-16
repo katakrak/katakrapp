@@ -1,23 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('LibrosCtrl', function($scope, Libros) {
-  $scope.libros = [];
-  Libros.all().success(function(data) {
-    var arrays = [], size = 2;
-
-    while (data.length > 0)
-        arrays.push(data.splice(0, size));
-   $scope.libross = arrays;
-//    angular.forEach(data, function(value, key) {
-//      $scope.libros.push(value);
-//      console.log(key);
-//    });
-    console.log($scope.libros);
-  });
-  $scope.logo = '<img class="pull-right" src="img/logo_katakrak.png">';
-})
-
-.controller('ActosCtrl', function($scope, Actos, $ionicLoading, Settings) {
+.controller('AgendaCtrl', function($scope, Actos, $ionicLoading, Settings) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -31,10 +14,8 @@ angular.module('starter.controllers', [])
   $ionicLoading.show({
     templateUrl: 'templates/spinner.html'
   });
-    console.log("Settings.getLang()");
 
   Actos.all().success(function(data) {
-    console.log("Hola");
     angular.forEach(data, function(value, key) {
       value.fecha = parseInt(value.fecha) * 1000;
       if (Settings.getLang() == 'eus') {
@@ -46,9 +27,9 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('ActoDetailCtrl', function($scope, $ionicModal, $stateParams, Actos, $ionicLoading) {
+.controller('ActoCtrl', function($scope, $ionicModal, $stateParams, Actos, $ionicLoading) {
   $scope.logo = '<img class="pull-right" src="img/logo_katakrak.png">';
-   $ionicLoading.show({
+  $ionicLoading.show({
     templateUrl: 'templates/spinner.html'
   });
   $scope.acto = {};
@@ -57,13 +38,12 @@ angular.module('starter.controllers', [])
     $scope.acto.fecha = parseInt($scope.acto.fecha) * 1000;
     $ionicLoading.hide();
     window.plugin.notification.local.isScheduled($scope.acto.id, function(isScheduled) {
-      window.location.replace('#/tab/acto/'+$scope.acto.id);
       if (isScheduled) {
         $scope.acto.scheduled = true; 
-        
       }
     });    
-  });  //$scope.acto = {"title":"Lohitzune Zuloaga \u00abEl espejismo de la seguridad ciudadana\u00bb","fecha":"1447869600","id":"49528","imagen":"<img src=\"http://www.katakrak.net/sites/default/files/styles/medium/public/events/lohitzune.jpg?itok=QVHCD0sW\" alt=\"\" />","thumbnail":"<img src=\"http://www.katakrak.net/sites/default/files/styles/event_thumbnail/public/events/lohitzune.jpg?itok=Tyz1NjDW\" alt=\"\" />","description":"<p>Con la autora.</p>\n","link":"<a href=\"http://katakrak.net/node/49528\">ver mas</a>"};
+  });  
+  //$scope.acto = {"title":"Lohitzune Zuloaga \u00abEl espejismo de la seguridad ciudadana\u00bb","fecha":"1447869600","id":"49528","imagen":"<img src=\"http://www.katakrak.net/sites/default/files/styles/medium/public/events/lohitzune.jpg?itok=QVHCD0sW\" alt=\"\" />","thumbnail":"<img src=\"http://www.katakrak.net/sites/default/files/styles/event_thumbnail/public/events/lohitzune.jpg?itok=Tyz1NjDW\" alt=\"\" />","description":"<p>Con la autora.</p>\n","link":"<a href=\"http://katakrak.net/node/49528\">ver mas</a>"};
   
   
   $scope.notification_options = [{id:60, name:"1 hora antes"}, {id: 120, name:"2 horas antes"},{id: 300, name:"5 horas antes"}, {id: 600, name:"10 horas antes"} ];
@@ -89,36 +69,9 @@ angular.module('starter.controllers', [])
       $scope.closeModal();
     });
   };
-    
-    $scope.isScheduled = function() {
-      window.plugin.notification.local.isScheduled($scope.acto.id, function(isScheduled) {
-        if (isScheduled) {
-          $scope.acto.scheduled = true; 
-        }
-        alert("Notification " + $scope.acto.id + " Scheduled: " + isScheduled);
-        });
-    };
-    
-    $scope.isTriggered = function() {
-      window.plugin.notification.local.isTriggered($scope.acto.id, function(isTriggered) {
-            alert("Notification " + $scope.acto.id + " Triggered: " + isTriggered);
-        });
-    };
-    
-    $scope.cancelNotification = function() {
-      $scope.acto.scheduled = false;
-      window.plugin.notification.local.cancel($scope.acto.id, function() { 
-      });
-      console.log($scope.acto.scheduled);
-    };
-    
-    $scope.addNotificationForm = function() {
-      $scope.modal.show();
-    }
-      // Triggered in the login modal to close it
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
+  $scope.addNotificationForm = function() {
+    $scope.modal.show();
+  }
 })
 
 .controller('AccountCtrl', function($scope, Settings) {

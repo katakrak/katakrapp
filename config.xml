@@ -41,5 +41,5 @@
   </platform>
   <plugin name="cordova-plugin-whitelist" spec="~1.0.0"/>
   <allow-navigation href="http://katakrak.net"/>
-  <allow-navigation href="http://localhost:8101"/>  
+  <allow-navigation href="http://localhost:8101"/>
 </widget>

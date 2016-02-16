@@ -1,0 +1,11 @@
+<ion-view view-title="{{'titulo_seccion_actos' | translate}}{{logo}}" class="bar-dark">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-icon-right" ng-repeat="acto in actos" type="" href="#/app/acto/{{acto.id}}">
+        {{acto.tipo_evento}}: {{acto.title}}
+        
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
