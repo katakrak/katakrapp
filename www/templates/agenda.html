@@ -1,11 +1,36 @@
 <ion-view view-title="{{'titulo_seccion_actos' | translate}}{{logo}}" class="bar-dark">
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-icon-right" ng-repeat="acto in actos" type="" href="#/app/acto/{{acto.id}}">
-        {{acto.tipo_evento}}: {{acto.title}}
-        
-        <i class="icon ion-chevron-right icon-accessory"></i>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-navicon" ng-click="openMenu()"></button>
+  </ion-nav-buttons> 
+  <h1>hola</h1>
+  <ion-tabs class="tabs-positive">
+    <ion-tab title="Hoy">
+      <h4>Hoy</h4>
+      <ion-list>
+        <ion-item class="item-icon-right" ng-repeat="acto in hoy" type="" href="#/app/acto/{{acto.id}}">
+          <div>{{acto.tipo_evento}}: {{acto.title}}  </div>
+          <div>{{acto.fecha| date:'HH:mm'}}</div>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </ion-item>
+      </ion-list>
+    </ion-tab>
+    <ion-tab title="Esta semana">
+      <h4>Esta semana</h4>
+      <ion-list>
+        <ion-item class="item-icon-right" ng-repeat="acto in esta_semana" type="" href="#/app/acto/{{acto.id}}">
+          <div>{{acto.tipo_evento}}: {{acto.title}}  </div>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </ion-item>
+      </ion-list>
+    </ion-tab>
+    <ion-tab title="Agenda">
+      <h4>Esta semana</h4>
+      <ion-list>
+        <ion-item class="item-icon-right" ng-repeat="acto in agenda" type="" href="#/app/acto/{{acto.id}}">
+          {{acto.tipo_evento}}: {{acto.title}}  
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </ion-item>
+      </ion-list>
+    </ion-tab>
+  </ion-tabs>
 </ion-view>
