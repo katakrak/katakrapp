@@ -1,9 +1,9 @@
 <ion-view view-title="Account{{logo}}">
   <ion-content>
-    <h2>Idioma</h2>
+    <h2>{{'idioma_string' | translate}}</h2>
     <ion-list>
-      <ion-radio ng-model="settings.idioma" value="cas" ng-change="changeLang()">Castellano</ion-radio>
-      <ion-radio ng-model="settings.idioma" value="eus" ng-change="changeLang()">Euskera</ion-radio>
+      <ion-radio ng-model="settings.idioma" value="cas" ng-change="changeLang()">{{'castellano_string' | translate}}</ion-radio>
+      <ion-radio ng-model="settings.idioma" value="eus" ng-change="changeLang()">{{'euskera_string' | translate}}</ion-radio>
     </ion-list>
   </ion-content>
     

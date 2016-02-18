@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'pascalprecht.translate'])
+angular.module('starter', ['ionic','ionic.service.core','ionic.service.push','ngCordova', 'starter.controllers', 'starter.services', 'pascalprecht.translate'])
 
 .run(function($ionicPlatform, $translate) {
   $ionicPlatform.ready(function() {
@@ -71,20 +71,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $translateProvider.translations('es', {
     titulo_seccion_actos: "Agenda Katakrak",
     titulo_seccion_libros: "Libros",
-    tab_actos: 'Agenda',
-    tab_config: "Configuración",
-    tab_libros: "Libros",
+    tab_hoy: 'Hoy',
+    tab_esta_semana: "Esta semana",
+    tab_proximamente: "Próximamente",
     loading: "Cargando",
     add_notification: "Notificarme",
+    notification_settings_text: "Cuándo recibir la notificación",
   });
   $translateProvider.translations('eu', {
       titulo_seccion_actos: "Katakrakeko agenda",
       titulo_seccion_libros: "Liburuak",
-      tab_actos: 'Agenda',
-      tab_config: "Konfigurazioa",
-      tab_libros: "Liburuak",
+      tab_hoy: 'gaur',
+      tab_esta_semana: "Aste honetan",
+      tab_proximamente: "Aurki",
       loading: "Kargatzen",
       add_notification: "Ekitaldiaren berri eman",
+      notification_settings_text: "Noiz jaso jakinarazpena",
   });
   
   $stateProvider
@@ -129,4 +131,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/agenda');
-});
+})
+
+.config(['$ionicAppProvider', function($ionicAppProvider) {
+  // Identify app
+  $ionicAppProvider.identify({
+    // The App ID (from apps.ionic.io) for the server
+    app_id: '1fd5dc44',
+    // The public API key all services will use for this app
+    api_key: '35e0598afafafef1d0bdbaa38bfddcaed4a7be87130d7d06',
+    // Set the app to use development pushes
+    dev_push: true
+  });
+}])
+;

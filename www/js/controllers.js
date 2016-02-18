@@ -30,16 +30,42 @@ angular.module('starter.controllers', [])
   $scope.agenda = [];
   
  $ionicLoading.show({
-      templateUrl: 'templates/spinner.html'
-    });
+    templateUrl: 'templates/spinner.html'
+  });
+  $scope.tab_hoy = false;
+      $scope.tab_semana = false;
   Actos.all().success(function(data) {
    
     angular.forEach(data, function(value, key) {
+      
+      var book_cat = ['31418', '31282', '31289'];
+      if (book_cat.indexOf(value.event_tid.tid) > -1) {
+        value.icon = "ion-ios-book";
+      }
+      var charla_cat = ['31771', '36044', '37379', '32792', '31317', '32292'];
+      if (charla_cat.indexOf(value.event_tid.tid) > -1) {
+        value.icon = 'ion-chatbubbles';
+      }
+      
+      var gastro_cat = ['35887', '40762'];
+      if (gastro_cat.indexOf(value.event_tid.tid) > -1) {
+        value.icon = 'ion-beer';
+      }
+      
+      var musica_cat = ['31321'];
+      if (musica_cat.indexOf(value.event_tid.tid) > -1) {
+        value.icon = 'ion-music-note';
+      }
+      
+      var proyeccion_cat = ['31284'];
+      if (proyeccion_cat.indexOf(value.event_tid.tid) > -1) {
+        value.icon = 'ion-videocamera';
+      }
+     
       today = new Date();
       var weekno = today.getWeek();
       var dayno = today.getDayOfYear();
       
-      console.log(weekno);
       value.fecha = parseInt(value.fecha) * 1000;
       if (Settings.getLang() == 'eus') {
         value.k = 'k';
@@ -48,11 +74,14 @@ angular.module('starter.controllers', [])
       
       if (date.getDayOfYear() == dayno) {
         $scope.hoy.push(value);
+        $scope.tab_hoy = true;
       }
       else if (date.getWeek() == weekno) {
         $scope.esta_semana.push(value);
+        $scope.tab_semana = true;
       }
       else {
+        $scope.tab_proximamente = true;
         $scope.agenda.push(value);
       }
       
@@ -61,7 +90,7 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('ActoCtrl', function($scope, $ionicModal, $stateParams, Actos, $ionicLoading) {
+.controller('ActoCtrl', function($scope, $ionicModal, $stateParams, Actos, $ionicLoading, $cordovaSocialSharing, Settings) {
   $scope.logo = '<img class="pull-right" src="img/logo_katakrak.png">';
   $ionicLoading.show({
     templateUrl: 'templates/spinner.html'
@@ -69,18 +98,23 @@ angular.module('starter.controllers', [])
   $scope.acto = {};
   Actos.get($stateParams.actoId).success(function(data) {
     $scope.acto = data[0]; 
+    if (Settings.getLang() == 'eus') {
+      $scope.acto.k = 'k';
+    }
     $scope.acto.fecha = parseInt($scope.acto.fecha) * 1000;
     $ionicLoading.hide();
-    window.plugin.notification.local.isScheduled($scope.acto.id, function(isScheduled) {
+    if (typeof window.plugin != 'undefined') {
+      window.plugin.notification.local.isScheduled($scope.acto.id, function(isScheduled) {
       if (isScheduled) {
         $scope.acto.scheduled = true; 
       }
-    });    
+    });
+  }
   });  
   //$scope.acto = {"title":"Lohitzune Zuloaga \u00abEl espejismo de la seguridad ciudadana\u00bb","fecha":"1447869600","id":"49528","imagen":"<img src=\"http://www.katakrak.net/sites/default/files/styles/medium/public/events/lohitzune.jpg?itok=QVHCD0sW\" alt=\"\" />","thumbnail":"<img src=\"http://www.katakrak.net/sites/default/files/styles/event_thumbnail/public/events/lohitzune.jpg?itok=Tyz1NjDW\" alt=\"\" />","description":"<p>Con la autora.</p>\n","link":"<a href=\"http://katakrak.net/node/49528\">ver mas</a>"};
   
   
-  $scope.notification_options = [{id:60, name:"1 hora antes"}, {id: 120, name:"2 horas antes"},{id: 300, name:"5 horas antes"}, {id: 600, name:"10 horas antes"} ];
+  $scope.notification_options = [{id:1, name:"El mismo día"}, {id: 2, name:"El día anterior"}];
   $scope.settings = {time: 0};
    // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/addNotificationForm.html', {
@@ -90,6 +124,12 @@ angular.module('starter.controllers', [])
   });
   
   $scope.addNotification = function(data) {
+    if ($scope.settings.time == 0) {
+      alert("Tienes que elegir una opción");
+    }
+    else {
+      
+    
     var alarmTime = new Date($scope.acto.fecha);
     alarmTime.setMinutes(alarmTime.getMinutes() - $scope.settings.time);
     window.plugin.notification.local.schedule({
@@ -102,13 +142,23 @@ angular.module('starter.controllers', [])
       $scope.acto.scheduled = true; 
       $scope.closeModal();
     });
+    }
   };
   $scope.addNotificationForm = function() {
     $scope.modal.show();
   }
+  
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  }
+  
+  $scope.shareAnywhere = function() {
+      $cordovaSocialSharing.share("", $scope.acto.title, "www/imagefile.png", "http://www.katakrak.net/"+Settings.getLang()+"/node/"+$scope.acto.id);
+    }
 })
-
-.controller('AccountCtrl', function($scope, Settings) {
+//Identified user Simon
+// ID 8b4aba43-f2f3-4c03-a2e7-b2c5a0b56b83
+.controller('AccountCtrl', function($scope, $rootScope, $ionicUser, $ionicPush, Settings) {
   $scope.logo = '<img class="pull-right" src="img/logo_katakrak.png">';
   $scope.settings = {idioma: Settings.getLang()};
   console.log($scope.settings.idioma);
@@ -117,5 +167,52 @@ angular.module('starter.controllers', [])
     Settings.setLang($scope.settings.idioma);
     //refresh the page so the changes are active
     window.location.reload(true);
+  };
+  
+  $rootScope.$on('$cordovaPush:tokenReceived', function(event, data) {
+    alert("Successfully registered token " + data.token + data.platform);
+    console.log('Ionic Push: Got token ', data.token, data.platform);
+    $scope.token = data.token;
+  });
+
+  // Identifies a user with the Ionic User service
+  $scope.identifyUser = function() {
+    console.log('Ionic User: Identifying with Ionic User service');
+
+    var user = $ionicUser.get();
+    if(!user.user_id) {
+      // Set your user_id here, or generate a random one.
+      user.user_id = $ionicUser.generateGUID();
+    };
+
+    // Add some metadata to your user object.
+    angular.extend(user, {
+      name: 'Ionitron',
+      bio: 'I come from planet Ion'
+    });
+
+    // Identify your user with the Ionic User Service
+    $ionicUser.identify(user).then(function(){
+      $scope.identified = true;
+      alert('Identified user ' + user.name + '\n ID ' + user.user_id);
+    });
+  };
+
+  // Registers a device for push notifications and stores its token
+  $scope.pushRegister = function() {
+    console.log('Ionic Push: Registering user');
+
+    // Register with the Ionic Push service.  All parameters are optional.
+    $ionicPush.register({
+      canShowAlert: true, //Can pushes show an alert on your screen?
+      canSetBadge: true, //Can pushes update app icon badges?
+      canPlaySound: true, //Can notifications play a sound?
+      canRunActionsOnWake: true, //Can run actions outside the app,
+      onNotification: function(notification) {
+        // Handle new push notifications here
+        alert(notification);
+        return true;
+      }
+    });
   };
 });

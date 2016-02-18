@@ -10,21 +10,16 @@
     <h3 class="padding">
       {{acto.title}}
     </h3>
-    <div class="row padding">
-      <div class="col-67">
+    <div class="padding">
+      
         <button ng-disabled="acto.scheduled" class="button" ng-click="addNotificationForm()">{{'add_notification'| translate}}</button>
-      </div>
-      <div class="col-33">
-          <div class="entry_date">
-          <div class="month">{{acto.fecha| date:'MMMM'}}</div>
-          <div class="day">{{acto.fecha| date:'dd'}}</div>
-          <div class="hour">{{acto.fecha| date:'HH:mm'}}</div>
-        </div>
-      </div>
+        <div class="button icon ion-android-share-alt" ng-click="shareAnywhere()"></div>
+
     </div>
     <div class="padding">
       <div ng-bind-html="acto.description"></div>
       <div ng-bind-html="acto.link"></div>
+      
     </div>
     
   </ion-content>

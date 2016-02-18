@@ -11,6 +11,8 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic-service-core/ionic-core.js"></script>
+    <script src="lib/ionic-service-push/ionic-push.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="js/ng-cordova.min.js"></script>
@@ -21,30 +23,15 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
-    <link type="text/css" rel="stylesheet" href="css/style.css" media="all" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" media="all">
 
-  </head>
+  
+<script src="lib/ngCordova/dist/ng-cordova.js"></script></head>
   <body ng-app="starter">
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
     <ion-nav-bar class="bar-dark">
-      <ion-side-menus enable-menu-with-back-views="false">
-  <ion-side-menu-content>
-    <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-        </button>
-      </ion-nav-buttons>
-    </ion-nav-bar>
-    <ion-nav-view name="menuContent"></ion-nav-view>
-  </ion-side-menu-content>
-</ion-side-menus>
-      <ion-nav-back-button>
-      </ion-nav-back-button>
     </ion-nav-bar>
     <!--
       The views will be rendered in the <ion-nav-view> directive below
